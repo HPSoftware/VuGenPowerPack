@@ -32,32 +32,26 @@
   <ItemGroup>
     <Reference Include="HP.LR.VuGen.Common, Version=11.50.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\Program Files (x86)\HP\LoadRunner\bin\HP.LR.VuGen.Common.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="HP.LR.VuGen.ServiceCore, Version=11.50.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\Program Files (x86)\HP\LoadRunner\bin\HP.LR.VuGen.ServiceCore.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="HP.LR.VuGen.StepData, Version=11.50.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\Program Files (x86)\HP\LoadRunner\bin\HP.LR.VuGen.StepData.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="HP.LR.VuGen.WebSnapshotBrowserControl, Version=11.50.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\Program Files (x86)\HP\LoadRunner\bin\HP.LR.VuGen.WebSnapshotBrowserControl.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="HP.LR.VuGen.XmlViewer, Version=11.50.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\Program Files (x86)\HP\LoadRunner\bin\HP.LR.VuGen.XmlViewer.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="HP.Utt.Common, Version=11.50.0.0, Culture=neutral, PublicKeyToken=9675578abe362d8d, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\Program Files (x86)\HP\LoadRunner\bin\HP.Utt.Common.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="HP.Utt.Core">
@@ -65,22 +59,18 @@
     </Reference>
     <Reference Include="HP.Utt.Dialog, Version=11.50.0.0, Culture=neutral, PublicKeyToken=9675578abe362d8d, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\Program Files (x86)\HP\LoadRunner\bin\HP.Utt.Dialog.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="HP.Utt.Logger, Version=11.50.0.0, Culture=neutral, PublicKeyToken=9675578abe362d8d, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\Program Files (x86)\HP\LoadRunner\bin\HP.Utt.Logger.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="HP.Utt.ProjectSystem, Version=11.50.0.0, Culture=neutral, PublicKeyToken=9675578abe362d8d, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\Program Files (x86)\HP\LoadRunner\bin\HP.Utt.ProjectSystem.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="ICSharpCode.Core, Version=4.1.0.0, Culture=neutral, PublicKeyToken=f829da5c02be14ee, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\Program Files (x86)\HP\LoadRunner\bin\ICSharpCode.Core.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="PresentationCore" />

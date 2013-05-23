@@ -1,0 +1,58 @@
+﻿<AddIn name = "HttpXmlView"
+       author = "Boris Kozorovitzky"
+       description = "Adds some missing functionality to the XML viewer in the Http snapshot">
+  <Runtime>
+    <Import assembly = "HttpXmlViewAddin.dll">
+      <ConditionEvaluator name="XmlEditorNodeType" class="HttpXmlViewAddin.XmlEditorNodeTypeCondition"/>
+    </Import>
+  </Runtime>
+
+  <Manifest>
+    <Identity name="HttpXmlViewAddin" version = "0.0.1.0" />
+  </Manifest>
+
+  <Path name="/VuGen/Snapshots/Viewers/ContextMenu/XmlEditor/Highlight">
+    <MenuItem
+     id = "HighlightText"
+     label = "Highlight by Text..."
+     class = "HttpXmlViewAddin.HighlightCommand"
+     tooltip ="Highlight nodes within the XML using Text"
+     shortcut ="Control|M"
+              />
+  </Path>
+
+  <Path name="/VuGen/Snapshots/Viewers/ContextMenu/XmlEditor">
+    <MenuItem
+   id = "LrXml"
+   label = "Lr Xml Steps"
+   type="Menu">
+
+      <Condition name= "CopyXPathToClipboardValidator" action="Disable" >
+        <Condition name ="XmlEditorNodeType" action="Disable" nodetype ="LeafElement">
+          <MenuItem
+           id = "CreateLrXmlFindStep"
+           label = "Insert XML Check..."
+           class = "HttpXmlViewAddin.CreateLrXmlFindStepCommand"
+           tooltip ="Creates the Lr Xml Find step" />
+
+          <MenuItem
+            id = "CreateLrXmlGetValuesStep"
+            label = "Get Values..."
+            class = "HttpXmlViewAddin.CreateLrXmlGetValuesStepCommand"
+            tooltip ="Creates the Lr Xml Get Values step" />
+        </Condition>
+
+        <Condition name ="XmlEditorNodeType" action="Disable" nodetype ="Element">
+          <MenuItem
+            id = "CreateLrXmlExtractStep"
+            label = "Extract XML ..."
+            class = "HttpXmlViewAddin.CreateLrXmlExctarctStepCommand"
+            tooltip ="Creates the Lr Xml Extract step" />
+        </Condition>
+      </Condition>
+
+    </MenuItem>
+  </Path>
+
+
+</AddIn>
