@@ -149,7 +149,7 @@ namespace HttpXmlViewAddin
 
     protected override RelativeStep Relative
     {
-      get { return RelativeStep.Before; }
+      get { return RelativeStep.After; }
     }
   }
 
