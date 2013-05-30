@@ -41,19 +41,19 @@ namespace XmlViewAddin
       StringBuilder result = new StringBuilder();
       foreach (string line in lines)
       {
-        string proccessedLine = line.Trim();
+        string processedLine = line.Trim();
         //Remove the leading and trailing " - this is VuGen specific code
-        if (proccessedLine.StartsWith("\""))
+        if (processedLine.StartsWith("\""))
         {
-          proccessedLine = proccessedLine.Remove(0, 1);
+          processedLine = processedLine.Remove(0, 1);
         }
-        if (proccessedLine.EndsWith("\""))
+        if (processedLine.EndsWith("\""))
         {
-          proccessedLine = proccessedLine.Remove(proccessedLine.Length - 1, 1);
+          processedLine = processedLine.Remove(processedLine.Length - 1, 1);
         }
-        proccessedLine = proccessedLine.Replace("\\", "");
+        processedLine = processedLine.Replace("\\", "");
 
-        result.Append(proccessedLine);
+        result.Append(processedLine);
       }
 
       return result.ToString();

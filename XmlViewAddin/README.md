@@ -11,14 +11,14 @@ a separate window directly from the script. The goal here is not to provide some
 useful functionality but to introduce the readers to the VuGen extensibility mechanism.
 
 ###Compilation Note
-To compile the project you must add *%LR_DIR%\bin* to the reference paths of the project.
+To compile the project you must add *%LR_DIR%\bin* to the reference paths of the project, where %LR_DIR% is the path to your LoadRunner installation.
 There is a compiled version in the *bin* directory in the root of the repository. If you 
 don't want to compile yourself you can copy the content of this directory to *%LR_DIR%\addins\extra\XmlViewAddin*.
 
 ## Addins
 ### Directory Structure
 VuGen 11.5x is based on [SharpDevelop 4.1](http://www.icsharpcode.net/opensource/sd/) and therefore it 
-uses the SharpDevelop (SD) extensibility layer. There is an additional layer of services but it is not used in this example.
+uses the SharpDevelop (SD) extensibility layer.
 VuGen itself contains only the core extensibility layer and the application starter, all other functionality
 including code editing, recording, replaying, script management, etc... are extensions to VuGen written in the same
 way as presented here. 
@@ -33,8 +33,6 @@ All the extensions are defined in the *%LR_DIR%\addins* directory through the us
 * ```VuGenBackEnd.addin``` - Defines functionality needed for VuGen business logic.
 
 The rest of the addins are distributed throughout the subdirectories by topic.
-As evident from the directory structure, VuGen is separated into three layers - SharpDevelop, Utt, and VuGen. The reason
-for this separation is not important to this discussion.
 
 ### Some useful terms
 Previously we discussed the term ```addin``` but where do those addins go when VuGen starts up? The addins
@@ -45,13 +43,14 @@ is basically a piece of code that "knows" how to do something. For example, if w
 definition of that ```codon``` to the appropriate place in the addin file. To "tell" the ```addin-tree``` to which tree node we want
 our ```codon``` to be added, we use the ```path``` property which is a concatenated list of all the nodes in the route to the target node.
 The path uses the ```id``` property of any ```codon``` to generate a new node for this ```codon``` so essentially each ```codon``` generates
-a node in the tree. For example, if we want to add my menu item into the main menu of the application, we should put it into the ```/SharpDevelop/Workbench/MainMenu``` path.
+a node in the tree. For example, if we want to add my menu item into the main menu of the application, 
+we should put it into the ```/SharpDevelop/Workbench/MainMenu``` path.
 This path basically reads, root -> SharpDevelop -> Workbench -> MainMenu node.
 
 
 ### Addin file structure
 The addin file is a simple XML file with a predefined structure. This section briefly describes the most
-important (and mandatory) parts of this file but it is a good idea to learn more directly from the SD website.
+important (and mandatory) parts of this file but it is a good idea to learn more directly from the [SharpDevelop website](http://www.icsharpcode.net/opensource/sd/).
 The following is an example of a simple addin file:
 ```xml
 <AddIn name = "XmlViewAddin"
@@ -89,7 +88,7 @@ In the example we can see that we add a menu item with the label "TEST!" to the 
 ## Writing your own addin
 In this section we write the initial files for our ```addin```. The code in this repository is implemented in Visual Studio 2010 but
 any editor can be used for this task. Specifically, VuGen is shipped with SharpDevelop 4.1 (including sources) so
-it is possible to install it directly from the LR DVD here ```\Additional Components\Third Parties\SharpDevelop_4_1_src\SharpDevelop-4.1.0.8000.zip```.
+it is possible to install it directly from the LoadRunner DVD here ```\Additional Components\Third Parties\SharpDevelop_4_1_src\SharpDevelop-4.1.0.8000.zip```.
 
 We start by creating a C# class library and adding a ```.addin``` file to it. You can use any .Net language. 
 Our addin file contains the XML from the example above.
@@ -101,16 +100,13 @@ We can "run" the addin by pressing F5. An instance of VuGen should start and the
 
 ![VuGen with the new menu item](/img/i1.png "VuGen with the new menu item")
 
-In the next sections I try to use as little "inside" knowledge as possible although this is
-not always possible.
-
 ## Step 1 - Adding a context menu command
 In this step we add a menu item to the context menu of the editor. We start by adding a menu item
 to the context menu of the editor pane. To do this we must first find the ```path``` of this
 context menu. We open an empty script and right click the editor to see where we want to place 
 the menu item. It seems that the best place is right after the "Go to Step in Replay log" item. 
 We search for the item name throughout all the ```.addin``` files. We found one instance of this string
-in the ```VuGenDebugger.addin``` so let's copy it to our addin file with the relevant changed.
+in the ```VuGenDebugger.addin``` so let's copy it to our addin file with the relevant changes.
 
 ```xml
   <Path name = "/SharpDevelop/ViewContent/TextEditor/ContextMenu">
@@ -134,7 +130,7 @@ right after the *GoToLine* ```codon```.
 a new class named *OpenXmlViewCommand* in the *XmlViewAddin* namespace.
 
 * By definition, each class that has the menu item functionality must inherit from the *ICommand* interface
-of SD. We have created a set of more convenient wrappers which are not mandatory to use. In this case we use the
+of SharpDevelop. We have created a set of more convenient wrappers which are not mandatory to use. In this case we use the
 *UttBaseWpfCommand* implementation class for the *ICommand* interface as the base class for our command. To do this we
 have to reference the following dlls: ```ICSharpCode.Core.dll``` and ```HP.Utt.Core.dll``` from *%LR_DIR%\bin* and ```PresentationCore``` from the GAC.
 Remember to set the "Copy local" property to ```false``` since we compile into the LoadRunner directory anyway.
@@ -185,19 +181,19 @@ unneeded parts from that string.
       StringBuilder result = new StringBuilder();
       foreach (string line in lines) 
       {
-        string proccessedLine = line.Trim();
+        string processedLine = line.Trim();
         //Remove the leading and trailing " - this is VuGen specific code
-        if (proccessedLine.StartsWith("\""))
+        if (processedLine.StartsWith("\""))
         {
-          proccessedLine = proccessedLine.Remove(0, 1);
+          processedLine = processedLine.Remove(0, 1);
         }
-        if (proccessedLine.EndsWith("\""))
+        if (processedLine.EndsWith("\""))
         {
-          proccessedLine = proccessedLine.Remove(proccessedLine.Length-1, 1);
+          processedLine = processedLine.Remove(processedLine.Length-1, 1);
         }
-        proccessedLine = proccessedLine.Replace("\\","");
+        processedLine = processedLine.Replace("\\","");
         
-        result.Append(proccessedLine);
+        result.Append(processedLine);
       }
 ``` 
 
@@ -224,7 +220,7 @@ we pass the read XML to the display component. The code looks something like thi
 
 (perhaps not the best code but good enough for our discussion)
 
-## Step 4 - Show the XML in a nice way
+## Step 4 - Display the formatted XML
 Now that we have the XML string we want to show it nicely in a modal dialog. We could open
  a regular dialog and use a textbox to display the XML but we can simply reuse the VuGen dialogs
 framework and the VuGen XML viewer to display our information. First we add the dialogs framework. We reference
@@ -321,7 +317,7 @@ Now all that remains is to wrap our menu item with the condition and watch the m
   </Path>
 ```
 
-The ```name``` of the condition we use here must be the same as the name in the definition. the ```action``` can be either
+The ```name``` of the condition we use here must be the same as the name in the definition. The ```action``` can be either
 *Disable* (if we want the menu item to appear disabled) or *Exclude* (if we don't want the menu item to appear at all).
 
 The final code looks like this:
@@ -357,19 +353,19 @@ The final code looks like this:
       StringBuilder result = new StringBuilder();
       foreach (string line in lines)
       {
-        string proccessedLine = line.Trim();
+        string processedLine = line.Trim();
         //Remove the leading and trailing " - this is VuGen specific code
-        if (proccessedLine.StartsWith("\""))
+        if (processedLine.StartsWith("\""))
         {
-          proccessedLine = proccessedLine.Remove(0, 1);
+          processedLine = processedLine.Remove(0, 1);
         }
-        if (proccessedLine.EndsWith("\""))
+        if (processedLine.EndsWith("\""))
         {
-          proccessedLine = proccessedLine.Remove(proccessedLine.Length - 1, 1);
+          processedLine = processedLine.Remove(processedLine.Length - 1, 1);
         }
-        proccessedLine = proccessedLine.Replace("\\", "");
+        processedLine = processedLine.Replace("\\", "");
 
-        result.Append(proccessedLine);
+        result.Append(processedLine);
       }
 
       return result.ToString();
@@ -458,7 +454,7 @@ Now all that remains is to implement the ```Reformat``` method:
 ## Conclusion
 We wrote a simple ```addin``` for VuGen to display and possibly reformat XML text in the editor. We saw how to integrate
 with the VuGen extensibility framework and how to use basic constructs to interact with the editor. Next, we implemented
-conditions and some logic for our ```CustomDialog```. We can see that with some knowledge of the classes behind VuGen 
-we can easily create functionality that can make script development much easier.
+conditions and some logic for our ```CustomDialog```.	We can see that with some knowledge of the classes behind VuGen we can easily extend 
+VuGen to create functionality that can make script development much easier.
 
 Good Luck!
