@@ -12,11 +12,28 @@ using HP.LR.VuGen.Snapshots.WebSnapshotBrowserControl.ViewEditors;
 using HP.Utt.UttCore;
 using ICSharpCode.Core;
 using ICSharpCode.Core.Services;
+using HP.Utt.UttDialog;
 
 namespace HttpXmlViewAddin
 {
   public abstract class LrXmlStepCommand : UttBaseCommand
   {
+    public static string GetCurrentStepResponseParameter()
+    {
+      IStepService stepService = ServiceManager.Instance.GetService<IStepService>();
+      var step = stepService.CurrentStep;
+      string result = step.GetExtensionProperty("dataposid");
+      return result;
+    }
+
+    public static void SetCurrentStepResponseParameter(string value)
+    {
+      IStepService stepService = ServiceManager.Instance.GetService<IStepService>();
+      var step = stepService.CurrentStep;
+      step.SetExtensionProperty("dataposid", value);
+    }
+
+
     protected string _xpath = "";
     protected string _elementName = "";
     protected string _value = "";
@@ -88,11 +105,19 @@ namespace HttpXmlViewAddin
         var functionCall = new FunctionCall();
         var signature = new FunctionCallSignature { Name = this.Name };
 
+        string currentParameterName = GetCurrentStepResponseParameter();
+        if (!string.IsNullOrEmpty(currentParameterName))
+        {
+          signature.Parameters.Add(new FunctionCallParameter(String.Format("XML={0}", currentParameterName),
+                                                  ParameterType.ArgtypeString));
+
+        }
 
         FillParameters(signature);
 
         functionCall.Signature = signature;
         functionCall.Location = new FunctionCallLocation(currentStep.FunctionCall.Location.FilePath, null, null);
+
 
         IStepModel stepModel = stepService.GenerateStep(functionCall);
         stepModel.ShowArguments(asyncResult =>
@@ -103,6 +128,18 @@ namespace HttpXmlViewAddin
             //set the last parameter to False, so it will not move cursor to the newly added step
             stepService.AddStep(ref stepModel, currentStep,
                                 Relative, false);
+
+            if (string.IsNullOrEmpty(currentParameterName))
+            {
+              FunctionCallParameter userParameter = stepModel.FunctionCall.Signature.Parameters.Find(p =>
+              {
+                return p.Value.StartsWith("XML=", StringComparison.InvariantCultureIgnoreCase);
+              });
+              if (userParameter != null)
+              {
+                SetCurrentStepResponseParameter(userParameter.Value.Remove(0, 4));
+              }
+            }
 
             stepService.CurrentStep = currentStep;
           }
@@ -135,14 +172,15 @@ namespace HttpXmlViewAddin
 
     protected override string Name
     {
-      get 
-      { 
-        return "lr_xml_find"; 
+      get
+      {
+        return "lr_xml_find";
       }
     }
-                                                          
+
     protected override void FillParameters(FunctionCallSignature signature)
     {
+
       signature.Parameters.Add(new FunctionCallParameter(string.Format("FastQuery={0}", _xpath), ParameterType.ArgtypeString));
       signature.Parameters.Add(new FunctionCallParameter(String.Format("Value={0}", _value), ParameterType.ArgtypeString));
     }
@@ -155,21 +193,21 @@ namespace HttpXmlViewAddin
 
   public class CreateLrXmlExctarctStepCommand : LrXmlStepCommand
   {
-        protected override string Name
-        {
-          get { return "lr_xml_extract"; }
-        }
+    protected override string Name
+    {
+      get { return "lr_xml_extract"; }
+    }
 
-        protected override void FillParameters(FunctionCallSignature signature)
-        {
-          signature.Parameters.Add(new FunctionCallParameter(string.Format("Query={0}", _xpath), ParameterType.ArgtypeString));
-          signature.Parameters.Add(new FunctionCallParameter(String.Format("XMLFragmentParam=ParamXml_{0}",_elementName), ParameterType.ArgtypeString));
-        }
+    protected override void FillParameters(FunctionCallSignature signature)
+    {
+      signature.Parameters.Add(new FunctionCallParameter(string.Format("Query={0}", _xpath), ParameterType.ArgtypeString));
+      signature.Parameters.Add(new FunctionCallParameter(String.Format("XMLFragmentParam=ParamXml_{0}", _elementName), ParameterType.ArgtypeString));
+    }
 
-        protected override RelativeStep Relative
-        {
-          get { return RelativeStep.Before; }
-        }
+    protected override RelativeStep Relative
+    {
+      get { return RelativeStep.After; }
+    }
 
   }
 
@@ -182,8 +220,8 @@ namespace HttpXmlViewAddin
 
     protected override void FillParameters(FunctionCallSignature signature)
     {
-      signature.Parameters.Add(new FunctionCallParameter(string.Format("FastQuery={0}",_xpath), ParameterType.ArgtypeString));
-      signature.Parameters.Add(new FunctionCallParameter(String.Format("ValueParam=ParamValue_{0}",_elementName), ParameterType.ArgtypeString));
+      signature.Parameters.Add(new FunctionCallParameter(string.Format("FastQuery={0}", _xpath), ParameterType.ArgtypeString));
+      signature.Parameters.Add(new FunctionCallParameter(String.Format("ValueParam=ParamValue_{0}", _elementName), ParameterType.ArgtypeString));
     }
 
     protected override RelativeStep Relative
@@ -193,5 +231,9 @@ namespace HttpXmlViewAddin
 
   }
 
+  public static class XmlHelper
+  {
+
+  }
 
 }
