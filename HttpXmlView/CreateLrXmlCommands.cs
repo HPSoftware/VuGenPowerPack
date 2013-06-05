@@ -231,9 +231,4 @@ namespace HttpXmlViewAddin
 
   }
 
-  public static class XmlHelper
-  {
-
-  }
-
 }
