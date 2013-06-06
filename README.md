@@ -30,5 +30,13 @@ highlights all the Xml elements with the input string as their value (a similar 
 
 
 
+##XmlViewAddin
+
+This addin demonstrates how to create an addin for VuGen. You can find the full instructions [here](https://github.com/BorisKozo/VuGenPowerPack/tree/master/XmlViewAddin).
+The addin adds the ability to show a piece of Xml in a convenient dialog. The user may reformat the Xml to a nicer representation by
+selecting the appropriate button in the dialog. The dialog can be launched by right clicking the editor and selecting the _Open in Xml viewer_ menu item.
+Below is an example of the possible use of this addin.
+![XmlViewAddin in action](/img/XmlViewAddin.png "XmlViewAddin in action")
+
 
 
