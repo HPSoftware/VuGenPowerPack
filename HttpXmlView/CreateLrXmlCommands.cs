@@ -13,6 +13,7 @@ using HP.Utt.UttCore;
 using ICSharpCode.Core;
 using ICSharpCode.Core.Services;
 using HP.Utt.UttDialog;
+using HP.LR.VuGen.ServiceCore.Data.ProjectSystem;
 
 namespace HttpXmlViewAddin
 {
@@ -26,11 +27,24 @@ namespace HttpXmlViewAddin
       return result;
     }
 
-    public static void SetCurrentStepResponseParameter(string value)
+    public static void SetCurrentStepResponseParameter(IVuGenScript script, string value)
     {
       IStepService stepService = ServiceManager.Instance.GetService<IStepService>();
+      IParametersService parametersService = ServiceManager.Instance.GetService<IParametersService>();
+      string leftBracket, rightBracket;
+      parametersService.GetParameterBraces(script, out leftBracket, out rightBracket);
+      string actualValue = value;
+      if (actualValue.StartsWith(leftBracket))
+      {
+        actualValue = actualValue.Substring(leftBracket.Length);
+      }
+
+      if (actualValue.EndsWith(rightBracket))
+      {
+        actualValue = actualValue.Substring(0, actualValue.Length - rightBracket.Length);
+      }
       var step = stepService.CurrentStep;
-      step.SetExtensionProperty("dataposid", value);
+      step.SetExtensionProperty("dataposid", actualValue);
     }
 
 
@@ -137,7 +151,7 @@ namespace HttpXmlViewAddin
               });
               if (userParameter != null)
               {
-                SetCurrentStepResponseParameter(userParameter.Value.Remove(0, 4));
+                SetCurrentStepResponseParameter(stepModel.ScriptItem.Script as IVuGenScript, userParameter.Value.Remove(0, 4));
               }
             }
 
