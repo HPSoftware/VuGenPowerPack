@@ -107,6 +107,8 @@ namespace XmlViewAddin
         formattedText.Append(Environment.NewLine+"\"");
       }
 
+      IDocumentLine documentLine = editor.Document.GetLineForOffset(editor.SelectionStart);
+      
       editor.Document.Replace(editor.SelectionStart, editor.SelectionLength, formattedText.ToString());
       dialog.Close();
     }

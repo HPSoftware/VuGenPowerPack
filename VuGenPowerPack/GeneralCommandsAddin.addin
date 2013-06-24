@@ -1,0 +1,23 @@
+﻿<AddIn name = "General Commands"
+       author = "Boris Kozorovitzky"
+       description = "Adds some general functionality - details in the readme">
+  <Runtime>
+    <Import assembly = "GeneralCommandsAddin.dll">
+    </Import>
+  </Runtime>
+
+  <Manifest>
+    <Identity name="GeneralCommandsAddin" version = "0.0.1.0" />
+  </Manifest>
+
+  <Path name = "/SharpDevelop/Workbench/MainMenu/File/ZIPOperations">
+    <Condition name="VuGenProjectActive" action="Disable">
+      <MenuItem id = "ExportToZipCustom"
+                label = "Export to &amp;Zip File (Script Directory)..."
+                icon = "VuGen_Zip_16x16_Export"
+                class = "GeneralCommandsAddin.ExportToZipCommand"
+                insertafter="ExportToZip"/>
+    </Condition>
+  </Path>
+
+  </AddIn>

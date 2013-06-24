@@ -1,0 +1,25 @@
+﻿<UserControl x:Uid="UserControl_1" x:Class="GeneralCommandsAddin.Dialogs.ZipScriptCustomControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:dialogs="clr-namespace:GeneralCommandsAddin.Dialogs"
+             mc:Ignorable="d">
+    <Grid x:Uid="Grid_1">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition x:Uid="ColumnDefinition_1" Width="Auto" />
+            <ColumnDefinition x:Uid="ColumnDefinition_2" Width="Auto" />
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition x:Uid="RowDefinition_1" Height="Auto" />
+            <RowDefinition x:Uid="RowDefinition_2" Height="Auto" />
+        </Grid.RowDefinitions>
+        <Label x:Uid="Label_1" Grid.Column="0" Grid.Row="0" Margin="0,0,18,0">Files to zip:</Label>
+        <RadioButton x:Uid="RuntimeFiles" GroupName="FilesToZip" Name="RuntimeFiles" 
+                     Grid.Column="1" Grid.Row="0" VerticalAlignment="Center"
+                     IsChecked="{Binding ExportRuntimeFiles}">Runtime files</RadioButton>
+        <RadioButton x:Uid="AllFiles" Margin="0,10,0,0" GroupName="FilesToZip" Name="AllFiles" 
+                     Grid.Column="1" Grid.Row="1"  VerticalAlignment="Center"
+                     IsChecked="{Binding ExportAllFiles}">All files</RadioButton>
+    </Grid>
+</UserControl>
