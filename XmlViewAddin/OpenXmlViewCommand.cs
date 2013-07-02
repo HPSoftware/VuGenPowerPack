@@ -89,25 +89,30 @@ namespace XmlViewAddin
       ITextEditor editor = UttCodeEditor.GetActiveTextEditor();
       string selectedText = editor.SelectedText;
       string[] xmlLines = FormatXml(GetSelectedString()).Split(new string[] { Environment.NewLine }, StringSplitOptions.RemoveEmptyEntries);
+      IDocumentLine documentLine = editor.Document.GetLineForOffset(editor.SelectionStart);
+      string lineText = documentLine.Text;
+      string indentation = lineText.Substring(0, lineText.Length - lineText.TrimStart().Length);
+
       StringBuilder formattedText = new StringBuilder();
       foreach (string line in xmlLines)
       {
-        formattedText.AppendLine("\""+line.Replace("\"", "\\\"")+"\"");
+        formattedText.AppendLine(indentation+"\""+line.Replace("\"", "\\\"")+"\"");
       }
 
       formattedText.Remove(formattedText.Length - Environment.NewLine.Length, Environment.NewLine.Length);
 
-      if (!selectedText.StartsWith("\""))
+      if (!selectedText.TrimStart().StartsWith("\""))
       {
         formattedText.Insert(0, "\"" + Environment.NewLine);
       }
 
-      if (!selectedText.EndsWith("\""))
+      if (!selectedText.TrimEnd().EndsWith("\""))
       {
-        formattedText.Append(Environment.NewLine+"\"");
+        formattedText.Append(Environment.NewLine+indentation+"\"");
       }
 
-      IDocumentLine documentLine = editor.Document.GetLineForOffset(editor.SelectionStart);
+		
+      DocumentUtilitites.FindNextWordStart(editor.Document, documentLine.Offset);
       
       editor.Document.Replace(editor.SelectionStart, editor.SelectionLength, formattedText.ToString());
       dialog.Close();
