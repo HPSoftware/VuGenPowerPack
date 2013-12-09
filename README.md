@@ -32,11 +32,18 @@ highlights all the Xml elements with the input string as their value (a similar 
 
 ##XmlViewAddin
 
-This addin demonstrates how to create an addin for VuGen. You can find the full instructions [here](https://github.com/BorisKozo/VuGenPowerPack/tree/master/XmlViewAddin).
+This addin demonstrates how to create an addin for VuGen. You can find the full instructions [here](https://github.com/HPSoftware/VuGenPowerPack/tree/master/XmlViewAddin).
 The addin adds the ability to show a piece of Xml in a convenient dialog. The user may reformat the Xml to a nicer representation by
 selecting the appropriate button in the dialog. The dialog can be launched by right clicking the editor and selecting the _"Open in Xml viewer"_ menu item.
 Below is an example of the possible use of this addin.
 ![XmlViewAddin in action](/img/XmlViewAddin.png "XmlViewAddin in action")
+
+
+##GeneralCommandsAddin
+
+This addin contains some general commands that make VuGen easier to use:
+
+* Export To Zip - Adds a command which allows you to export to zip directly above the script directory like in VuGen 11.04. You can find the command at File -> Manage Zip Files -> Export to Zip file (script directory)
 
 
 

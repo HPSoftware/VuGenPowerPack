@@ -3,3 +3,11 @@
 /GeneralCommandsAddin/obj/Debug
 
 /XmlViewAddin/obj/Debug
+
+/VuGenPowerPack.v11.suo
+
+/XmlViewAddin/*.user
+
+/HttpXmlView/*.user
+
+/GeneralCommandsAddin/*.user

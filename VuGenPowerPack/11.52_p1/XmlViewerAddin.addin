@@ -1,0 +1,22 @@
+﻿<AddIn name = "XmlViewAddin"
+       author = "Boris Kozorovitzky"
+       description = "Adds the functionality to easily view XML data directly from the editor">
+  <Runtime>
+    <Import assembly = "XmlViewAddin.dll">
+      <ConditionEvaluator name="IsValidXmlSelected" class="XmlViewAddin.IsValidXmlSelectedCondition"/>
+    </Import>
+  </Runtime>
+
+  <Manifest>
+    <Identity name="XmlViewAddin" version = "0.0.1.0" />
+  </Manifest>
+
+  <Path name = "/SharpDevelop/ViewContent/TextEditor/ContextMenu">
+    <Condition name="IsValidXmlSelected" action="Disable">
+      <MenuItem id="OpenXmlView" insertafter="GoToLine" insertbefore="InsertSeparator"
+              label = "Open in XML viewer"
+              class = "XmlViewAddin.OpenXmlViewCommand"/>
+    </Condition>
+  </Path>
+
+</AddIn>
