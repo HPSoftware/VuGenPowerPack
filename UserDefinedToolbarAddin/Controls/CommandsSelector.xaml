@@ -1,0 +1,76 @@
+﻿<UserControl x:Class="UserDefinedToolbarAddin.Controls.CommandsSelector"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:resources="clr-namespace:HP.Utt.UttResources;assembly=HP.Utt.Resources"
+             mc:Ignorable="d" 
+             d:DesignHeight="400" d:DesignWidth="600" >
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*" MaxWidth="300" MinWidth="150"></ColumnDefinition>
+            <ColumnDefinition Width="50"></ColumnDefinition>
+            <ColumnDefinition Width="*" MaxWidth="300" MinWidth="150"></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+        <StackPanel VerticalAlignment="Center" Grid.Column="1">
+            <Button Width="32px" Height="32px" Margin="5" Command ="{Binding MoveUpCommand}" CommandParameter="{Binding SelectedItem, ElementName=UsedItemsListBox}">
+                <Image Source="{resources:ResourceImage VuGen_Standard_16x16_MoveUp}" ></Image>
+            </Button>
+          <Button Width="32px" Height="32px" Margin="5" Command ="{Binding MoveRightCommand}" CommandParameter="{Binding SelectedItem, ElementName=UnusedItemsListBox}" >
+            <Image Source="{resources:ResourceImage VuGen_Standard_16x16_RightArrow}" ></Image>
+          </Button>
+          <Button Width="32px" Height="32px" Margin="5" Command ="{Binding MoveLeftCommand}" CommandParameter="{Binding SelectedItem, ElementName=UsedItemsListBox}">
+            <Image Source="{resources:ResourceImage VuGen_Standard_16x16_LeftArrow}" ></Image>
+          </Button>
+          <Button Width="32px" Height="32px" Margin="5" Command ="{Binding MoveDownCommand}" CommandParameter="{Binding SelectedItem, ElementName=UsedItemsListBox}">
+            <Image Source="{resources:ResourceImage VuGen_Standard_16x16_MoveDown}"  ></Image>
+          </Button>
+
+        </StackPanel>
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"></RowDefinition>
+                <RowDefinition Height="*"></RowDefinition>
+            </Grid.RowDefinitions>
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"></ColumnDefinition>
+                    <ColumnDefinition Width="*"></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+                <Label Grid.Column="0">Filter:</Label>
+                <TextBox Grid.Column="1" HorizontalAlignment="Stretch" Margin="2" Text="{Binding SelectedItem, ElementName=UnusedItemsListBox}"></TextBox>
+            </Grid>
+            <ListBox Grid.Row="1" ItemsSource="{Binding UnusedItems}" x:Name="UnusedItemsListBox" SelectedIndex ="{Binding SelectedUnusedIndex}">
+                <ListBox.ItemTemplate>
+                    <DataTemplate>
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto"></ColumnDefinition>
+                                <ColumnDefinition Width="*"></ColumnDefinition>
+                            </Grid.ColumnDefinitions>
+
+                            <Label Grid.Column="0">IMG</Label>
+                            <TextBlock Grid.Column="1" Text="{Binding DisplayString}" Margin="5,0,5,0"/>
+                        </Grid>
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
+            </ListBox>
+        </Grid>
+        <Grid Grid.Column="2">
+            <ListBox ItemsSource="{Binding UsedItems}" x:Name="UsedItemsListBox" SelectedIndex ="{Binding SelectedUsedIndex}" >
+              <ListBox.ItemTemplate>
+                <DataTemplate>
+                  <Grid>
+                    <Grid.ColumnDefinitions>
+                      <ColumnDefinition Width="Auto"></ColumnDefinition>
+                      <ColumnDefinition Width="*"></ColumnDefinition>
+                    </Grid.ColumnDefinitions>
+                    <Label Grid.Column="0">IMG</Label>
+                    <TextBlock Grid.Column="1" Text="{Binding DisplayString}" Margin="5,0,5,0"/>
+                  </Grid>
+                </DataTemplate>
+              </ListBox.ItemTemplate>
+            </ListBox>
+        </Grid>
+    </Grid>
+</UserControl>
