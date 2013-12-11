@@ -8,9 +8,9 @@
              d:DesignHeight="400" d:DesignWidth="600" >
     <Grid>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="*" MaxWidth="300" MinWidth="150"></ColumnDefinition>
+            <ColumnDefinition Width="*" MaxWidth="400" MinWidth="150"></ColumnDefinition>
             <ColumnDefinition Width="50"></ColumnDefinition>
-            <ColumnDefinition Width="*" MaxWidth="300" MinWidth="150"></ColumnDefinition>
+            <ColumnDefinition Width="*" MaxWidth="400" MinWidth="150"></ColumnDefinition>
         </Grid.ColumnDefinitions>
         <StackPanel VerticalAlignment="Center" Grid.Column="1">
             <Button Width="32px" Height="32px" Margin="5" Command ="{Binding MoveUpCommand}" CommandParameter="{Binding SelectedItem, ElementName=UsedItemsListBox}">
@@ -38,7 +38,7 @@
                     <ColumnDefinition Width="*"></ColumnDefinition>
                 </Grid.ColumnDefinitions>
                 <Label Grid.Column="0">Filter:</Label>
-                <TextBox Grid.Column="1" HorizontalAlignment="Stretch" Margin="2" Text="{Binding SelectedItem, ElementName=UnusedItemsListBox}"></TextBox>
+                <TextBox Grid.Column="1" HorizontalAlignment="Stretch" Margin="2" Text="{Binding FilterText, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"></TextBox>
             </Grid>
             <ListBox Grid.Row="1" ItemsSource="{Binding UnusedItems}" x:Name="UnusedItemsListBox" SelectedIndex ="{Binding SelectedUnusedIndex}">
                 <ListBox.ItemTemplate>
@@ -49,8 +49,8 @@
                                 <ColumnDefinition Width="*"></ColumnDefinition>
                             </Grid.ColumnDefinitions>
 
-                            <Label Grid.Column="0">IMG</Label>
-                            <TextBlock Grid.Column="1" Text="{Binding DisplayString}" Margin="5,0,5,0"/>
+                          <Image VerticalAlignment="Center" HorizontalAlignment="Center" Width="17px" Height="17px" Source="{Binding Icon}" Margin="4" ></Image>
+                          <TextBlock Grid.Column="1" Text="{Binding DisplayString}"  VerticalAlignment="Center"  Margin="5,0,5,0"/>
                         </Grid>
                     </DataTemplate>
                 </ListBox.ItemTemplate>
@@ -65,8 +65,8 @@
                       <ColumnDefinition Width="Auto"></ColumnDefinition>
                       <ColumnDefinition Width="*"></ColumnDefinition>
                     </Grid.ColumnDefinitions>
-                    <Label Grid.Column="0">IMG</Label>
-                    <TextBlock Grid.Column="1" Text="{Binding DisplayString}" Margin="5,0,5,0"/>
+                    <Image VerticalAlignment="Center" HorizontalAlignment="Center" Width="17px" Height="17px" Source="{Binding Icon}" Margin="4" ></Image>
+                    <TextBlock Grid.Column="1" Text="{Binding DisplayString}"  VerticalAlignment="Center"  Margin="5,0,5,0"/>
                   </Grid>
                 </DataTemplate>
               </ListBox.ItemTemplate>

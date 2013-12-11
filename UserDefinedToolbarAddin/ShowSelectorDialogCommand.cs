@@ -11,7 +11,7 @@ namespace UserDefinedToolbarAddin
 {
   public class ShowSelectorDialogCommand:UttBaseCommand
   {
-    private static string UsedCommandsListKey = "UsedCommandsListKey";
+    internal static string UsedCommandsListKey = "UsedCommandsListKey";
 
     public override void Run()
     {
@@ -19,12 +19,16 @@ namespace UserDefinedToolbarAddin
       dialog.Content = new CommandsSelector();
       List<string> usedCommands = dialog.PersistenceData.GetValue<List<string>>("", UsedCommandsListKey, new List<string>());
       List<SearchItem> items = SearchItemBuilder.BuildSearchItems();
-      dialog.DataContext = new CommandsSelectorViewModel(items, usedCommands);
-      dialog.MinWidth = 600;
-      dialog.MinHeight = 400;
-      dialog.MaxHeight = 600;
+      CommandsSelectorViewModel viewModel = new CommandsSelectorViewModel(items, usedCommands);
+      dialog.DataContext = viewModel;
+      dialog.MinWidth = dialog.MaxWidth = 800;
+      dialog.MinHeight = dialog.MaxHeight =  400;
+      dialog.ResizeMode = System.Windows.ResizeMode.NoResize;
       dialog.AddOkCancelButtons(new Action<CustomDialog>(OnOkPressed));
-      dialog.ShowDialog();
+      if (dialog.ShowDialog() == CustomDialogResult.Ok)
+      {
+        AutostartCommand.UpdateToolbar(viewModel.GetUsedSearchItems());
+      }
     }
 
     private void OnCancelPressed(CustomDialog dialog)
@@ -39,8 +43,10 @@ namespace UserDefinedToolbarAddin
       {
         dialog.PersistenceData.SetValue<List<string>>("", UsedCommandsListKey, viewModel.GetUsedCommandsList());
       }
+      dialog.Save();
       dialog.DialogResult = CustomDialogResult.Ok;
       dialog.Close();
+
     }
   }
 }

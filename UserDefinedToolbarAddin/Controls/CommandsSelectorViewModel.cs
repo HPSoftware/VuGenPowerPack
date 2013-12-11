@@ -2,9 +2,11 @@
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Data;
 
 namespace UserDefinedToolbarAddin.Controls
 {
@@ -13,11 +15,14 @@ namespace UserDefinedToolbarAddin.Controls
 
     private ObservableCollection<SearchItem> _unusedItems;
     private ObservableCollection<SearchItem> _usedItems;
+    private ICollectionView _collectionView;
 
     public CommandsSelectorViewModel(List<SearchItem> allItems, List<string> displayedItemIds)
     {
       _unusedItems = new ObservableCollection<SearchItem>(allItems);
       _usedItems = new ObservableCollection<SearchItem>();
+      _collectionView = CollectionViewSource.GetDefaultView(_unusedItems);
+      _collectionView.Filter = new Predicate<object>(FilterPredicate); 
 
       foreach (string displayedItemId in displayedItemIds)
       {
@@ -25,9 +30,37 @@ namespace UserDefinedToolbarAddin.Controls
         if (foundItem != null)
         {
           _usedItems.Add(foundItem);
+          _unusedItems.Remove(foundItem);
         }
       }
 
+    }
+
+    private bool FilterPredicate(Object item)
+    {
+      SearchItem searchItem = item as SearchItem;
+      if (string.IsNullOrWhiteSpace(FilterText) || FilterText.Length < 2)
+        return true;
+
+      if (searchItem.DisplayString.Contains(FilterText))
+        return true;
+
+      return false;
+    }
+
+    private string _filterText;
+    public string FilterText
+    {
+      get
+      {
+        return _filterText;
+      }
+      set
+      {
+        _filterText = value;
+        _collectionView.Refresh();
+        OnPropertyChanged("FilterText");
+      }
     }
 
     public ObservableCollection<SearchItem> UnusedItems
@@ -194,5 +227,16 @@ namespace UserDefinedToolbarAddin.Controls
       }
     }
 
+
+    internal List<SearchItem> GetUsedSearchItems()
+    {
+      List<SearchItem> result = new List<SearchItem>();
+      foreach (SearchItem item in _usedItems)
+      {
+        result.Add(item);
+      }
+
+      return result;
+    }
   }
 }

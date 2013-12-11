@@ -11,3 +11,7 @@
 /HttpXmlView/*.user
 
 /GeneralCommandsAddin/*.user
+
+/UserDefinedToolbarAddin/UserDefinedToolbarAddin.csproj.user
+
+/UserDefinedToolbarAddin/obj

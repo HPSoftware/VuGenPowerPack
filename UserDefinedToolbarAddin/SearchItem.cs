@@ -4,6 +4,9 @@ using System.Linq;
 using System.Text;
 using ICSharpCode.Core;
 using System.Windows.Input;
+using System.Windows.Media;
+using HP.Utt.Common;
+using System.Drawing;
 
 namespace UserDefinedToolbarAddin
 {
@@ -90,6 +93,27 @@ namespace UserDefinedToolbarAddin
         if (Codon.GetFailedAction(this) == ConditionFailedAction.Exclude)
           return false;
         return true;
+      }
+    }
+
+
+    public ImageSource Icon
+    {
+      get
+      {
+        if (Codon.Properties.Get("icon") == null)
+          return null;
+        Object imageObj = ResourceService.GetImageResource(Codon.Properties.Get("icon").ToString());
+        if (imageObj == null)
+        {
+          return null;
+        }
+        if (imageObj is Bitmap)
+          return WpfUtils.GetImageSource(imageObj as Bitmap);
+        else if (imageObj is Icon)
+          return WpfUtils.GetImageSource((imageObj as Icon).ToBitmap());
+
+        return null;
       }
     }
 

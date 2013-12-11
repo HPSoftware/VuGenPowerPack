@@ -1,4 +1,5 @@
 ﻿using HP.Utt.UttCore;
+using HP.Utt.UttDialog;
 using ICSharpCode.SharpDevelop.Gui;
 using System;
 using System.Collections.Generic;
@@ -8,11 +9,14 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Media;
+using UserDefinedToolbarAddin.Controls;
 
 namespace UserDefinedToolbarAddin
 {
   public class AutostartCommand : UttBaseCommand
   {
+    private static ToolBar _toolbar;
     public override void Run()
     {
 
@@ -28,11 +32,76 @@ namespace UserDefinedToolbarAddin
           break;
         }
       }
-      ToolBar toolbar = new ToolBar();
-      DockPanel.SetDock(toolbar, Dock.Top);
-      mainWindowDockPanel.Children.Insert(insertionIndex, toolbar);
-      
+      _toolbar = new ToolBar();
+      DockPanel.SetDock(_toolbar, Dock.Top);
+      mainWindowDockPanel.Children.Insert(insertionIndex, _toolbar);
 
+      CustomDialog dialog = new HP.Utt.UttDialog.CustomDialog("UserDefinedToolbarAddin.SelectorDialog");
+      List<string> usedCommands = dialog.PersistenceData.GetValue<List<string>>("", ShowSelectorDialogCommand.UsedCommandsListKey, new List<string>());
+      List<SearchItem> items = SearchItemBuilder.BuildSearchItems();
+      CommandsSelectorViewModel viewModel = new CommandsSelectorViewModel(items, usedCommands);
+      UpdateToolbar(viewModel.GetUsedSearchItems());
     }
+
+    public static void UpdateToolbar(List<SearchItem> items)
+    {
+      _toolbar.Items.Clear();
+      foreach (SearchItem item in items)
+      {
+        Button button = new Button();
+        //StackPanel panel = new StackPanel();
+        //panel.Orientation = Orientation.Horizontal;
+
+        ImageSource icon = item.Icon;
+        if (icon != null)
+        {
+          Image image = new Image();
+          image.Source = icon;
+          image.Width = 17;
+          image.Height = 17;
+          button.Content = image ;
+        }
+        else
+        {
+          Label label = new Label();
+  				label.Content = item.DisplayString;
+	  			label.Padding = new Thickness(0);
+		  		label.VerticalContentAlignment = VerticalAlignment.Center;
+          button.Content = label;
+        }
+
+        //button.Content = panel;
+        button.Command = new DelegateCommand<SearchItem>(ButtonCanExecute, ButtonExecute);
+        button.CommandParameter = item;
+        button.Tag = item;
+        _toolbar.Items.Add(button);
+      }
+      //_toolbar.Items.Add(
+    }
+
+    static void ButtonExecute(SearchItem item)
+    {
+        item.Activator();
+    }
+
+    static bool ButtonCanExecute(SearchItem item)
+    {
+      if (item.Activator == null)
+        return false;
+
+      if (item.IsVisible == false)
+        return false;
+
+      if (item.IsEnabled == false)
+        return false;
+
+      if (item.Command != null && !item.Command.CanExecute(item.CommandParameter))
+        return false;
+
+      return true;
+    }
+
+
+
   }
 }

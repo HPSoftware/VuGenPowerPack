@@ -20,7 +20,7 @@ namespace UserDefinedToolbarAddin
       if (!AddInTree.ExistsTreeNode(SDSearchPath))
         return result;
 
-      List<SearchPathDescriptor> descriptors = AddInTree.BuildItems<SearchPathDescriptor>(SDSearchPath,null);
+      List<SearchPathDescriptor> descriptors = AddInTree.BuildItems<SearchPathDescriptor>(SDSearchPath, null);
       foreach (SearchPathDescriptor descriptor in descriptors)
       {
         List<SearchItem> descriptorList = BuildSearchItems(descriptor);
@@ -35,12 +35,12 @@ namespace UserDefinedToolbarAddin
       AddInTreeNode node = AddInTree.GetTreeNode(descriptor.Path);
       foreach (Codon codon in node.Codons)
       {
-        result.AddRange(HandleMenuCodon(descriptor, codon,descriptor.Path, new List<string>()));
+        result.AddRange(HandleMenuCodon(descriptor, codon, descriptor.Path, new List<string>()));
       }
       return result;
     }
 
-    private static List<SearchItem> HandleMenuCodon(SearchPathDescriptor descriptor, Codon codon,string path, List<string> pathChain)
+    private static List<SearchItem> HandleMenuCodon(SearchPathDescriptor descriptor, Codon codon, string path, List<string> pathChain)
     {
 
       List<SearchItem> result = new List<SearchItem>();
@@ -79,12 +79,12 @@ namespace UserDefinedToolbarAddin
           foreach (MenuItem menuItem in collection)
           {
             SearchItem item = GenerateSearchItem(descriptor, codon, nextPath, nextPathChain);
-            item.Label =  menuItem.Header.ToString();
+            item.Label = menuItem.Header.ToString();
             item.Command = menuItem.Command;
             item.CommandParameter = menuItem.CommandParameter;
             item.Shortcut = menuItem.InputGestureText;
-            
-            if (String.IsNullOrWhiteSpace(item.CommandTypeString) && item.Command == null) 
+
+            if (String.IsNullOrWhiteSpace(item.CommandTypeString) && item.Command == null)
               continue;
 
             item.Id = path + "/" + item.Label;
@@ -97,12 +97,12 @@ namespace UserDefinedToolbarAddin
         }
       }
       return result;
-      
 
-      
+
+
     }
 
-    private static void HandleItemMenuType(SearchPathDescriptor descriptor, Codon codon, string path,  List<string> nextPathChain, List<SearchItem> result)
+    private static void HandleItemMenuType(SearchPathDescriptor descriptor, Codon codon, string path, List<string> nextPathChain, List<SearchItem> result)
     {
       SearchItem item = GenerateSearchItem(descriptor, codon, path, nextPathChain);
       item.Label = AddNextPathChainString(codon);
@@ -119,6 +119,10 @@ namespace UserDefinedToolbarAddin
     {
       SearchItem item = new SearchItem();
       item.Codon = codon;
+      string commandName = codon.Properties["command"];
+      if (!string.IsNullOrEmpty(commandName))
+        item.Command = MenuService.GetRegisteredCommand(codon.AddIn, commandName);
+
       item.PathChain.AddRange(nextPathChain);
       item.Category = descriptor.Category;
       item.Id = path;
@@ -128,7 +132,7 @@ namespace UserDefinedToolbarAddin
     private static string AddNextPathChainString(Codon codon)
     {
       if (codon.Properties.Contains("label"))
-        return StringParser.Parse(codon.Properties["label"]).Replace("&","");
+        return StringParser.Parse(codon.Properties["label"]).Replace("&", "");
       else
         return codon.Id;
     }
