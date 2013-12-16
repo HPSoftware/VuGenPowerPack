@@ -20,4 +20,15 @@
     </Condition>
   </Path>
 
+  <Path name="/SharpDevelop/Workbench/MainMenu/Search">
+
+    <Condition name = "WindowActive" activewindow="ICSharpCode.SharpDevelop.Editor.ITextEditorProvider" action="Disable">
+      <MenuItem insertafter = "GotoLineNumber"
+                id="GoToStepInReplayLogMenuCommand"
+                    label = "Go to step in Replay log"
+                    shortcut = "Control|Shift|J"
+                    class = "GeneralCommandsAddin.GoToStepInReplayLogMenuCommand"/>
+    </Condition>
+  </Path>
+
   </AddIn>

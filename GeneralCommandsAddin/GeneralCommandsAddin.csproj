@@ -82,6 +82,11 @@
       <SpecificVersion>False</SpecificVersion>
       <Private>False</Private>
     </Reference>
+    <Reference Include="HP.Utt.InformationPanes, Version=11.50.0.0, Culture=neutral, PublicKeyToken=9675578abe362d8d, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\Program Files (x86)\HP\LoadRunner\bin\HP.Utt.InformationPanes.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
     <Reference Include="HP.Utt.ProjectSystem">
       <SpecificVersion>False</SpecificVersion>
       <Private>False</Private>
@@ -127,6 +132,7 @@
       <DependentUpon>ZipScriptCustomControl.xaml</DependentUpon>
     </Compile>
     <Compile Include="Dialogs\ZipScriptCustomControlViewModel.cs" />
+    <Compile Include="GoToStepInReplayLogMenuCommand.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
