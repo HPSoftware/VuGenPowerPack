@@ -45,5 +45,11 @@ This addin contains some general commands that make VuGen easier to use:
 
 * Export To Zip - Adds a command which allows you to export to zip directly above the script directory like in VuGen 11.04. You can find the command at File -> Manage Zip Files -> Export to Zip file (script directory)
 
+* Go to step in Replay log - Adds a command which jumps to the line of the current step in the replay log (similar to the command in the editor context menu). You can find the command at Search -> Go to step in replay log (Control + Shift + J)
 
+
+##UserDefinedToolbarAddin
+
+Creates a secondary toolbar where the user can put commands from the main menu. The toolbar can load commands from any 
+path in the addin tree so the user may add any command to the toolbar by adding the path of the command to the toolbar addin.
 

@@ -1,0 +1,31 @@
+﻿<AddIn name        = "UserDefinedToolbarAddin"
+       author      = "Boris Kozorovitzky"
+       url         = ""
+       description = "Adds a toolbar where users can define their own buttons">
+	
+	<Runtime>
+    <Import assembly = "UserDefinedToolbarAddin.dll">
+      <Doozer name="SearchPath" class="UserDefinedToolbarAddin.SearchPathDoozer"/>
+    </Import>
+	</Runtime>
+
+  <Path name="/Workspace/AutostartAfterWorkbenchInitialized">
+    <Class id="UserDefinedToolbarAddin.AutostartCommand" class="UserDefinedToolbarAddin.AutostartCommand"></Class>
+  </Path>
+  
+  <Path name ="/SharpDevelop/Workbench/UserDefinedToolbar" >
+    <SearchPath path="/SharpDevelop/Workbench/MainMenu" category="Main Menu"></SearchPath>
+  </Path>
+
+  <Path name = "/SharpDevelop/Workbench/ToolBar/Standard">
+    <ToolbarItem id      = "UserDefinedToolbar"
+             insertafter = "Toolbar_HelpButtonsEndSeparator"
+             icon = "VuGen_Steps_16x16_ictb_edit"
+             tooltip = "Select buttons for the secondary toolbar"
+             class = "UserDefinedToolbarAddin.ShowSelectorDialogCommand"/>
+  </Path>
+</AddIn>
+
+
+
+

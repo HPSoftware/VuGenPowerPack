@@ -51,17 +51,26 @@ namespace UserDefinedToolbarAddin
       {
         Button button = new Button();
         ImageSource icon = item.Icon;
+        string tooltip = item.Shortcut;
+        if (item.Codon != null && item.Codon.Properties.Get("tooltip") != null)
+        {
+          tooltip = item.Codon.Properties.Get("tooltip").ToString() + " " + tooltip;
+        }
+
+        button.ToolTip = tooltip;
+
         if (icon != null)
         {
           Image image = new Image();
           image.Source = icon;
           image.Width = 17;
           image.Height = 17;
+          image.Stretch = Stretch.None;
           button.Content = image;
         }
         else
         {
-          Label label = new Label();
+          Label label = new Label();    
           label.Content = item.DisplayString;
           label.Padding = new Thickness(0);
           label.VerticalContentAlignment = VerticalAlignment.Center;
