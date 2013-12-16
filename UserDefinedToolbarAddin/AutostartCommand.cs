@@ -41,6 +41,7 @@ namespace UserDefinedToolbarAddin
       List<SearchItem> items = SearchItemBuilder.BuildSearchItems();
       CommandsSelectorViewModel viewModel = new CommandsSelectorViewModel(items, usedCommands);
       UpdateToolbar(viewModel.GetUsedSearchItems());
+      dialog.Close();
     }
 
     public static void UpdateToolbar(List<SearchItem> items)
@@ -49,9 +50,6 @@ namespace UserDefinedToolbarAddin
       foreach (SearchItem item in items)
       {
         Button button = new Button();
-        //StackPanel panel = new StackPanel();
-        //panel.Orientation = Orientation.Horizontal;
-
         ImageSource icon = item.Icon;
         if (icon != null)
         {
@@ -59,24 +57,31 @@ namespace UserDefinedToolbarAddin
           image.Source = icon;
           image.Width = 17;
           image.Height = 17;
-          button.Content = image ;
+          button.Content = image;
         }
         else
         {
           Label label = new Label();
-  				label.Content = item.DisplayString;
-	  			label.Padding = new Thickness(0);
-		  		label.VerticalContentAlignment = VerticalAlignment.Center;
+          label.Content = item.DisplayString;
+          label.Padding = new Thickness(0);
+          label.VerticalContentAlignment = VerticalAlignment.Center;
           button.Content = label;
         }
 
-        //button.Content = panel;
         button.Command = new DelegateCommand<SearchItem>(ButtonCanExecute, ButtonExecute);
         button.CommandParameter = item;
         button.Tag = item;
         _toolbar.Items.Add(button);
       }
-      //_toolbar.Items.Add(
+
+      if (items.Count > 0)
+      {
+        _toolbar.Visibility = Visibility.Visible;
+      }
+      else
+      {
+        _toolbar.Visibility = Visibility.Collapsed;
+      }
     }
 
     static void ButtonExecute(SearchItem item)

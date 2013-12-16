@@ -42,7 +42,7 @@ namespace UserDefinedToolbarAddin.Controls
       if (string.IsNullOrWhiteSpace(FilterText) || FilterText.Length < 2)
         return true;
 
-      if (searchItem.DisplayString.Contains(FilterText))
+      if (searchItem.DisplayString.ToLower().Contains(FilterText.ToLower()))
         return true;
 
       return false;

@@ -24,5 +24,29 @@ namespace UserDefinedToolbarAddin.Controls
     {
       InitializeComponent();
     }
+
+    public void UsedListItem_MouseDoubleClick(object sender, MouseEventArgs e)
+    {
+      CommandsSelectorViewModel viewModel = this.DataContext as CommandsSelectorViewModel;
+      if (viewModel != null)
+      {
+        if (viewModel.MoveLeftCommand.CanExecute(UsedItemsListBox.SelectedItem))
+        {
+          viewModel.MoveLeftCommand.Execute(UsedItemsListBox.SelectedItem);
+        }
+      }
+    }
+
+    public void UnusedListItem_MouseDoubleClick(object sender, MouseEventArgs e)
+    {
+      CommandsSelectorViewModel viewModel = this.DataContext as CommandsSelectorViewModel;
+      if (viewModel != null)
+      {
+        if (viewModel.MoveRightCommand.CanExecute(UnusedItemsListBox.SelectedItem))
+        {
+          viewModel.MoveRightCommand.Execute(UnusedItemsListBox.SelectedItem);
+        }
+      }
+    }
   }
 }

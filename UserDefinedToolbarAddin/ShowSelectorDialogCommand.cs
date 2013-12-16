@@ -25,10 +25,21 @@ namespace UserDefinedToolbarAddin
       dialog.MinHeight = dialog.MaxHeight =  400;
       dialog.ResizeMode = System.Windows.ResizeMode.NoResize;
       dialog.AddOkCancelButtons(new Action<CustomDialog>(OnOkPressed));
+      dialog.AddButton("Clear", OnClearPressed);
       if (dialog.ShowDialog() == CustomDialogResult.Ok)
       {
         AutostartCommand.UpdateToolbar(viewModel.GetUsedSearchItems());
       }
+    }
+
+    private void OnClearPressed(CustomDialog dialog)
+    {
+      CommandsSelectorViewModel viewModel = dialog.DataContext as CommandsSelectorViewModel;
+      if (viewModel != null)
+      {
+        viewModel.UsedItems.Clear();
+      }
+
     }
 
     private void OnCancelPressed(CustomDialog dialog)
