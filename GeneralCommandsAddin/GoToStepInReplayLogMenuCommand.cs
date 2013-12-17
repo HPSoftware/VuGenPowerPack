@@ -1,4 +1,8 @@
-﻿using HP.LR.VuGen.ServiceCore;
+// --------------------------------------------------------------------
+// © Copyright 2013 Hewlett-Packard Development Company, L.P.
+//--------------------------------------------------------------------
+
+using HP.LR.VuGen.ServiceCore;
 using HP.LR.VuGen.ServiceCore.Data.Debugger;
 using HP.LR.VuGen.ServiceCore.Data.StepService;
 using HP.LR.VuGen.ServiceCore.Interfaces;

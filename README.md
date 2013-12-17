@@ -53,3 +53,4 @@ This addin contains some general commands that make VuGen easier to use:
 Creates a secondary toolbar where the user can put commands from the main menu. The toolbar can load commands from any 
 path in the addin tree so the user may add any command to the toolbar by adding the path of the command to the toolbar addin.
 
+![UserDefinedToolbarAddin in action](/img/customtoolbar.gif "UserDefinedToolbarAddin in action")

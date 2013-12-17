@@ -1,4 +1,8 @@
-﻿using System.Reflection;
+// --------------------------------------------------------------------
+// © Copyright 2013 Hewlett-Packard Development Company, L.P.
+//--------------------------------------------------------------------
+
+using System.Reflection;
 using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 
@@ -8,9 +12,9 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyTitle("HttpXmlView")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("")]
+[assembly: AssemblyCompany("Hewlett-Packard")]
 [assembly: AssemblyProduct("HttpXmlView")]
-[assembly: AssemblyCopyright("")]
+[assembly: AssemblyCopyright("© Copyright 2013 Hewlett-Packard Development Company, L.P.")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 

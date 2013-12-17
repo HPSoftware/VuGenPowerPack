@@ -1,4 +1,8 @@
-﻿using HP.Utt.Common;
+// --------------------------------------------------------------------
+// © Copyright 2013 Hewlett-Packard Development Company, L.P.
+//--------------------------------------------------------------------
+
+using HP.Utt.Common;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;

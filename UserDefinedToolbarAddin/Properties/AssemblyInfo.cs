@@ -1,4 +1,8 @@
-﻿using System.Reflection;
+// --------------------------------------------------------------------
+// © Copyright 2013 Hewlett-Packard Development Company, L.P.
+//--------------------------------------------------------------------
+
+using System.Reflection;
 using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 
@@ -8,9 +12,9 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyTitle("UserDefinedToolbarAddin")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("HP")]
+[assembly: AssemblyCompany("Hewlett-Packard")]
 [assembly: AssemblyProduct("UserDefinedToolbarAddin")]
-[assembly: AssemblyCopyright("Copyright © HP 2013")]
+[assembly: AssemblyCopyright("© Copyright 2013 Hewlett-Packard Development Company, L.P.")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 

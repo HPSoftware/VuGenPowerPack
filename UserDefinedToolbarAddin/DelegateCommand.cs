@@ -1,4 +1,8 @@
-﻿using HP.Utt.UttCore;
+// --------------------------------------------------------------------
+// © Copyright 2013 Hewlett-Packard Development Company, L.P.
+//--------------------------------------------------------------------
+
+using HP.Utt.UttCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;

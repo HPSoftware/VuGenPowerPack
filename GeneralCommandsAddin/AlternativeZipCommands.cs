@@ -1,4 +1,8 @@
-﻿using GeneralCommandsAddin.Dialogs;
+// --------------------------------------------------------------------
+// © Copyright 2013 Hewlett-Packard Development Company, L.P.
+//--------------------------------------------------------------------
+
+using GeneralCommandsAddin.Dialogs;
 using HP.LR.VuGen.ServiceCore;
 using HP.LR.VuGen.ServiceCore.Data.ProjectSystem;
 using HP.LR.VuGen.ServiceCore.Interfaces;

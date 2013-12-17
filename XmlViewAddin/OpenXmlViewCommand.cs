@@ -1,4 +1,8 @@
-﻿using System;
+// --------------------------------------------------------------------
+// © Copyright 2013 Hewlett-Packard Development Company, L.P.
+//--------------------------------------------------------------------
+
+using System;
 using HP.Utt.UttCore;
 using HP.Utt.CodeEditorUtils;
 using ICSharpCode.SharpDevelop.Editor;
