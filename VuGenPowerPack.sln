@@ -15,6 +15,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GeneralCommandsAddin", "Gen
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UserDefinedToolbarAddin", "UserDefinedToolbarAddin\UserDefinedToolbarAddin.csproj", "{C4C7D8F9-15F8-4EC4-AF14-B8F49881387F}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Experimental", "Experimental", "{5B12557F-FA73-46DD-8480-002BE759E400}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TransactionWriterAddin", "Experimental\TransactionWriterAddin\TransactionWriterAddin.csproj", "{584A1C69-EC86-4397-9B35-FA3C7D932EC5}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -37,8 +41,15 @@ Global
 		{C4C7D8F9-15F8-4EC4-AF14-B8F49881387F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C4C7D8F9-15F8-4EC4-AF14-B8F49881387F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C4C7D8F9-15F8-4EC4-AF14-B8F49881387F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{584A1C69-EC86-4397-9B35-FA3C7D932EC5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{584A1C69-EC86-4397-9B35-FA3C7D932EC5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{584A1C69-EC86-4397-9B35-FA3C7D932EC5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{584A1C69-EC86-4397-9B35-FA3C7D932EC5}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{584A1C69-EC86-4397-9B35-FA3C7D932EC5} = {5B12557F-FA73-46DD-8480-002BE759E400}
 	EndGlobalSection
 EndGlobal
