@@ -6,6 +6,7 @@ using HP.LR.Vugen.Common;
 using HP.LR.VuGen.ServiceCore;
 using HP.LR.VuGen.ServiceCore.Data.ProjectSystem;
 using HP.LR.VuGen.ServiceCore.Interfaces;
+using HP.Utt.ProjectSystem;
 using HP.Utt.UttCore;
 using System;
 using System.Collections.Generic;
@@ -28,14 +29,31 @@ namespace TransactionWriterAddin
     {
       IVuGenProjectService projectService = VuGenServiceManager.GetService<IVuGenProjectService>();
       projectService.ScriptSaved += projectService_ScriptSaved;
+      projectService.ScriptSavedAs += projectService_ScriptSavedAs;
+      if (projectService is UttProjectService)
+      (projectService as UttProjectService).ScriptExported+=AutostartCommand_ScriptExported;
+
+    }
+
+    void projectService_ScriptSavedAs(object sender, SaveAsEventArgs e)
+    {
+      AddTransactionNames(e.Script as IVuGenScript);
+    }
+
+    void AutostartCommand_ScriptExported(object sender, ExportEventArgs e)
+    {
+      AddTransactionNames(e.Script as IVuGenScript,Path.Combine(e.PersistenceToken.LocalPath,e.PersistenceToken.LoadData));
     }
 
     void projectService_ScriptSaved(object sender, HP.Utt.ProjectSystem.SaveEventArgs e)
     {
+      AddTransactionNames(e.Script as IVuGenScript);
+    }
+
+    private static void AddTransactionNames(IVuGenScript script, string usrFileName=null)
+    {
       try
       {
-
-        IVuGenScript script = e.Script as IVuGenScript;
         if (script == null) return;
         List<IExtraFileScriptItem> extraFiles = script.GetExtraFiles();
         IExtraFileScriptItem dynamicTransacrions = null;
@@ -56,16 +74,22 @@ namespace TransactionWriterAddin
         if (scriptData == null) return;
         List<String> transactionsList = scriptData.SpecialSteps.Transactions;
         transactionsList.AddRange(transactionNames);
-        IniUsrFile usr = new IniUsrFile(script.FileName);
+        IniUsrFile usr;
+        if (usrFileName != null)
+        {
+          usr = new IniUsrFile(usrFileName);
+        }
+        else
+        {
+          usr = new IniUsrFile(script.FileName); 
+        }
         usr.WriteTransactions(transactionsList);
         usr.Save();
-      } 
+      }
       catch
       {
         //Don't want to have adverse influence on the regular usage of VuGen. If this fails it does so silently. 
       }
-
-
     }
   }
 }

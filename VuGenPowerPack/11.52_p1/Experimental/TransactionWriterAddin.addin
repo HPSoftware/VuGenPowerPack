@@ -1,0 +1,17 @@
+﻿<AddIn name = "Transaction Writer"
+       author = "Boris Kozorovitzky"
+       description = "Writes the transaction names from dynamic_transactions.txt into the usr file on each save">
+  <Runtime>
+    <Import assembly = "TransactionWriterAddin.dll">
+    </Import>
+  </Runtime>
+
+  <Manifest>
+    <Identity name="TransactionWriterAddin" version = "0.0.1.0" />
+  </Manifest>
+
+  <Path name="/Workspace/AutostartAfterWorkbenchInitialized">
+    <Class id="TransactionWriterAddin.AutostartCommand" class="TransactionWriterAddin.AutostartCommand"></Class>
+  </Path>
+
+  </AddIn>
