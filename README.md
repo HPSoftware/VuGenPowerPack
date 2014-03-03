@@ -56,6 +56,19 @@ path in the addin tree so the user may add any command to the toolbar by adding 
 
 ![UserDefinedToolbarAddin in action](/img/customtoolbar.gif "UserDefinedToolbarAddin in action")
 
+
+##The Experimental Addins
+
+The _experimental_ addins are located in a separate directory within the PowerPack. They are separated **not** because of
+instability but because they affect the normal operation of VuGen even if the user doesn't take specific action in activating the
+addin (such as clicking a button). Please use the addins in this section only if you need their functionality explicitly.
+
+### TransactionWriterAddin
+
+Developed mainly for BPM users, this addin adds pre-defined transaction names into the usr file during "Save", "SaveAs", and "Export" operations.
+If there is a file called _dynamic_transactions.txt_ in the extra files, it will read the file line by line and add each line as a transaction name
+in the usr file. This allows you to register transaction names which are not actual transactions within the script.
+
 #License
 © Copyright 2013 Hewlett-Packard Development Company, L.P.
 
